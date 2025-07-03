@@ -1,0 +1,113 @@
+
+R version 4.2.2 (2022-10-31 ucrt) -- "Innocent and Trusting"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library("tidyverse")
+Error: package or namespace load failed for ‘tidyverse’:
+ .onAttach failed in attachNamespace() for 'tidyverse', details:
+  call: NULL
+  error: package or namespace load failed for ‘stringr’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ there is no package called ‘stringi’
+In addition: Warning messages:
+1: package ‘tidyverse’ was built under R version 4.2.3 
+2: package ‘tibble’ was built under R version 4.2.3 
+3: package ‘tidyr’ was built under R version 4.2.3 
+4: package ‘readr’ was built under R version 4.2.3 
+5: package ‘purrr’ was built under R version 4.2.3 
+6: package ‘dplyr’ was built under R version 4.2.3 
+7: package ‘stringr’ was built under R version 4.2.3 
+> library("datarium")
+Error in library("datarium") : there is no package called ‘datarium’
+> install.packages("datarium")
+Installing package into ‘C:/Users/91892/AppData/Local/R/win-library/4.2’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.2/datarium_0.1.0.zip'
+Content type 'application/zip' length 47219 bytes (46 KB)
+downloaded 46 KB
+
+package ‘datarium’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\91892\AppData\Local\Temp\RtmpWAfyQY\downloaded_packages
+> data('marketing',package='datarium')
+> head(marketing,4)
+  youtube facebook newspaper sales
+1  276.12    45.36     83.04 26.52
+2   53.40    47.16     54.12 12.48
+3   20.64    55.08     83.16 11.16
+4  181.80    49.56     70.20 22.20
+> model <- lm(sales ~ youtube + facebook + newspaper,data= marketing)
+> summary(model)
+
+Call:
+lm(formula = sales ~ youtube + facebook + newspaper, data = marketing)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.5932  -1.0690   0.2902   1.4272   3.3951 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.526667   0.374290   9.422   <2e-16 ***
+youtube      0.045765   0.001395  32.809   <2e-16 ***
+facebook     0.188530   0.008611  21.893   <2e-16 ***
+newspaper   -0.001037   0.005871  -0.177     0.86    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.023 on 196 degrees of freedom
+Multiple R-squared:  0.8972,    Adjusted R-squared:  0.8956 
+F-statistic: 570.3 on 3 and 196 DF,  p-value: < 2.2e-16
+
+> summary(model)$coefficient
+                Estimate  Std. Error    t value     Pr(>|t|)
+(Intercept)  3.526667243 0.374289884  9.4222884 1.267295e-17
+youtube      0.045764645 0.001394897 32.8086244 1.509960e-81
+facebook     0.188530017 0.008611234 21.8934961 1.505339e-54
+newspaper   -0.001037493 0.005871010 -0.1767146 8.599151e-01
+> model <- lm(sales ~ youtube + facebook,data= marketing)
+> summary(model)
+
+Call:
+lm(formula = sales ~ youtube + facebook, data = marketing)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.5572  -1.0502   0.2906   1.4049   3.3994 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.50532    0.35339   9.919   <2e-16 ***
+youtube      0.04575    0.00139  32.909   <2e-16 ***
+facebook     0.18799    0.00804  23.382   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.018 on 197 degrees of freedom
+Multiple R-squared:  0.8972,    Adjusted R-squared:  0.8962 
+F-statistic: 859.6 on 2 and 197 DF,  p-value: < 2.2e-16
+
+> confint(model)
+                 2.5 %     97.5 %
+(Intercept) 2.80841159 4.20222820
+youtube     0.04301292 0.04849671
+facebook    0.17213877 0.20384969
+> 
